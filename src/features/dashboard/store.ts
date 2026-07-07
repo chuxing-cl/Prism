@@ -26,13 +26,24 @@ export const useDashboardStore = defineStore("dashboard", () => {
       applyData(data)
       logger.info("Dashboard data loaded", { source: "fetch" })
     } catch (err) {
-      error.value = "数据加载失败"
+      error.value = "鏁版嵁鍔犺浇澶辫触"
       logger.error("Failed to load dashboard data", err)
     } finally {
       loading.value = false
     }
   }
 
+
+  async function silentRefresh() {
+    error.value = null
+    try {
+      const data = await repo.getDashboardData()
+      applyData(data)
+      logger.debug("Dashboard data silently refreshed")
+    } catch (err) {
+      logger.error("Silent refresh failed", err)
+    }
+  }
   async function refreshRealtime() {
     try {
       const data = await repo.refreshRealtimeOrders()
@@ -55,6 +66,6 @@ export const useDashboardStore = defineStore("dashboard", () => {
   return {
     kpi, salesTrend, categoryDistribution, regionalStats, realtimeOrders,
     lastUpdated, loading, error,
-    fetchData, refreshRealtime,
+    fetchData, silentRefresh, refreshRealtime,
   }
 })
