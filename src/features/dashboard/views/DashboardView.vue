@@ -1,23 +1,28 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from "vue"
+import { onMounted, onBeforeUnmount, ref } from "vue"
 import { useDashboardStore } from "@/features/dashboard/store"
 import { useAutoRefresh } from "@/shared/composables"
-import { getConfig } from "@/core/config"
 import AppLayout from "@/features/layout/components/AppLayout.vue"
 import LoadingSpinner from "@/shared/components/LoadingSpinner.vue"
 import KpiRow from "@/features/dashboard/components/KpiRow.vue"
 import ChartGrid from "@/features/dashboard/components/ChartGrid.vue"
 
 const store = useDashboardStore()
-const { start, stop } = useAutoRefresh(() => store.refreshRealtime(), 3000)
+const liveActive = ref(false)
+
+const { start: startRealtime, stop: stopRealtime } = useAutoRefresh(() => store.refreshRealtime(), 3000)
+const { start: startFullRefresh, stop: stopFullRefresh } = useAutoRefresh(() => store.silentRefresh(), 10000)
 
 onMounted(async () => {
   await store.fetchData()
-  start()
+  liveActive.value = true
+  startRealtime()
+  startFullRefresh()
 })
 
 onBeforeUnmount(() => {
-  stop()
+  stopRealtime()
+  stopFullRefresh()
 })
 
 function handleRefresh() {
@@ -36,6 +41,10 @@ function handleRefresh() {
     </div>
 
     <div class="refresh-bar">
+      <div class="live-indicator" :class="{ active: liveActive }">
+        <span class="live-dot" />
+        <span class="live-text">实时</span>
+      </div>
       <button class="refresh-btn" @click="handleRefresh" :disabled="store.loading">
         刷新数据
       </button>
@@ -63,5 +72,42 @@ function handleRefresh() {
   justify-content: flex-end;
   gap: 12px;
   flex-shrink: 0;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  margin-right: auto;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+.live-indicator.active {
+  opacity: 1;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.live-text {
+  font-size: 11px;
+  color: var(--success);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 </style>
