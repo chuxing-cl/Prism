@@ -13,7 +13,7 @@ Prism 提供完整的从设计到实现的数据大屏搭建流程，覆盖**数
 
 ## 大屏预览
 
-![智慧零售运营中心](https://raw.githubusercontent.com/chuxing-cl/Prism/main/public/dashboard-preview.png)
+![智慧零售运营中心](pic/pp1.png)
 
 > 实际效果以本地运行后浏览器展示为准。
 
