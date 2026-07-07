@@ -3,6 +3,9 @@ import type { EChartsOption } from "echarts"
 
 export function createSalesTrendOption(data: SalesTrendPoint[]): EChartsOption {
   return {
+    animationDuration: 800,
+    animationDurationUpdate: 500,
+    animationEasing: "cubicOut",
     tooltip: {
       trigger: "axis",
       backgroundColor: "rgba(15, 29, 50, 0.9)",
