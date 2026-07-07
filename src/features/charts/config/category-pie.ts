@@ -5,6 +5,9 @@ const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#22c55e", "#f59e0b", "#ef4444"
 
 export function createCategoryPieOption(data: CategoryItem[]): EChartsOption {
   return {
+    animationDuration: 800,
+    animationDurationUpdate: 500,
+    animationEasing: "cubicOut",
     tooltip: {
       trigger: "item",
       backgroundColor: "rgba(15, 29, 50, 0.9)",
