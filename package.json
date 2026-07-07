@@ -1,0 +1,44 @@
+{
+  "name": "prism",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "vue": "^3.5.39",
+    "vue-router": "^4.4.0",
+    "pinia": "^2.1.7",
+    "axios": "^1.7.2",
+    "echarts": "^5.5.0",
+    "mockjs": "^1.1.0",
+    "lucide-vue-next": "^0.441.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/mockjs": "^1.0.10",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^9.0.0",
+    "husky": "^9.1.4",
+    "jsdom": "^25.0.0",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vitest": "^3.0.0",
+    "vue-tsc": "^3.3.5",
+    "@antfu/eslint-config": "^4.0.0",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2"
+  }
+}
