@@ -4,6 +4,9 @@ import type { EChartsOption } from "echarts"
 export function createRegionalBarOption(data: RegionalStats[]): EChartsOption {
   const maxData = Math.max(...data.map((d) => d.sales / 10000))
   return {
+    animationDuration: 800,
+    animationDurationUpdate: 500,
+    animationEasing: "cubicOut",
     tooltip: {
       trigger: "axis",
       backgroundColor: "rgba(15, 29, 50, 0.9)",
