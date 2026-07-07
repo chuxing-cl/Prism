@@ -1,17 +1,18 @@
 import { ref, onBeforeUnmount, nextTick, watch, type Ref } from "vue"
 import * as echarts from "echarts/core"
-import { LineChart, BarChart, PieChart } from "echarts/charts"
+import { LineChart, BarChart, PieChart, MapChart } from "echarts/charts"
 import {
   TitleComponent,
   TooltipComponent,
   GridComponent,
   LegendComponent,
+  VisualMapComponent,
 } from "echarts/components"
 import { CanvasRenderer } from "echarts/renderers"
 
 echarts.use([
-  LineChart, BarChart, PieChart,
-  TitleComponent, TooltipComponent, GridComponent, LegendComponent,
+  LineChart, BarChart, PieChart, MapChart,
+  TitleComponent, TooltipComponent, GridComponent, LegendComponent, VisualMapComponent,
   CanvasRenderer,
 ])
 
